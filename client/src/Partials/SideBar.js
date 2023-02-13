@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 
-const SideBar = ({ logoutHandler }) => {
+
+const SideBar = () => {
   const [open, setOpen] = useState(false);
 
-  
   return (
     // <div className="flex">
     <div
