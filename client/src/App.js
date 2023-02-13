@@ -9,6 +9,7 @@ function App() {
     const [auth, setAuth] = useState(false);
     const navigate = useNavigate();
 
+<<<<<<< HEAD
     const logoutHandler = () => {
         setAuth(false);
         localStorage.removeItem("token");
@@ -22,6 +23,20 @@ function App() {
             <Route path="/profile" element={<Profile />} />
         </Routes>
     );
+=======
+  const logoutHandler = () => {
+    setAuth(false);
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+  return (
+    
+    <Routes>
+      <Route path="/login" element={<Login setAuth={setAuth} />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
+  );
+>>>>>>> 2cf1230ebb76550fd804c7e2e75983dfac74915e
 }
 
 export default App;

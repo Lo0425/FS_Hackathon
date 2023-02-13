@@ -13,3 +13,5 @@ const { PORT, DB_HOST, DB_PORT, DB_NAME } = process.env;
 app.use("/users", require("./api/users"));
 
 app.listen(PORT, () => console.log("Server is running in PORT " + PORT));
+
+mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`);
