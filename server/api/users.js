@@ -10,6 +10,8 @@ router.post("/register", async (req, res) => {
   try {
     let { username, email, password } = req.body;
     let userFound = await User.findOne({ email });
+    return res.json("Hello");
+
     if (userFound)
       return res.status(400).json({ msg: "Email already exists", status: 400 });
 

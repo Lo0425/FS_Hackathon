@@ -11,9 +11,9 @@ function Register() {
     username: "",
     password: "",
     password2: "",
-    teacher: false,
-    student: false,
-    parent: false,
+    leader: false,
+    admin: false,
+    employee: false,
   });
 
   const [viewPass, setViewPass] = useState(true);
