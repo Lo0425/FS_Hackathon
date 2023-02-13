@@ -11,8 +11,7 @@ app.use(express.static("public"));
 const { PORT, DB_HOST, DB_PORT, DB_NAME } = process.env;
 
 app.use("/users", require("./api/users"));
-app.use("/requests", require("./api/requests"));
+app.use("/request", require("./api/request"));
 
 app.listen(PORT, () => console.log("Server is running in PORT " + PORT));
-
 mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`);
