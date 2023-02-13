@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import SideBar from "../Partials/SideBar";
 import LoadingBar from "../Partials/LoadingBar";
-import Content from "../Contents/MainContent";
+import LeaveContent from "../Contents/LeaveContent";
 
-const Main = () => {
+const Leave = () => {
     return (
         <div className="flex">
             <SideBar />
-            <Content />
+            <LeaveContent />
         </div>
     );
 };
 
-export default Main;
+export default Leave;
