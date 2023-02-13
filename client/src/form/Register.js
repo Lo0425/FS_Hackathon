@@ -29,18 +29,23 @@ function Register() {
 
   const roleOption = [
     {
-      label: "Student",
-      value: "student",
+      label: "Admin",
+      value: "admin",
     },
     {
-      label: "Teacher",
-      value: "teacher",
+      label: "Leader",
+      value: "leader",
+    },
+    {
+      label: "Employee",
+      value: "employee",
     },
   ];
 
   let onSubmitHandler = (e) => {
     e.preventDefault();
     if (user.username.length < 8) {
+      console.log("<8 username");
       toast.error("username should be more than 8", {
         position: "top-center",
         autoClose: 3500,
@@ -48,6 +53,8 @@ function Register() {
         closeOnClick: true,
       });
     } else if (user.password.length < 8) {
+      console.log("less < 8");
+
       toast.error("password should be more then 8", {
         position: "top-center",
         autoClose: 3500,
@@ -55,6 +62,7 @@ function Register() {
         closeOnClick: true,
       });
     } else if (user.password !== user.password2) {
+      console.log("pass !=");
       toast.error("password should be match", {
         position: "top-center",
         autoClose: 3500,
@@ -62,10 +70,11 @@ function Register() {
         closeOnClick: true,
       });
     } else if (
-      user.teacher == false &&
-      user.student == false &&
-      user.parent == false
+      user.admin == false &&
+      user.employee == false &&
+      user.leader == false
     ) {
+      console.log("Blue select role");
       toast.error("Please select your role", {
         position: "top-center",
         autoClose: 3500,
@@ -73,7 +82,9 @@ function Register() {
         closeOnClick: true,
       });
     } else {
-      fetch(`${process.env.REACT_APP_API_SERVER}/users/register`, {
+      console.log("Blue");
+
+      fetch(`http://127.0.0.1:8000/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +104,6 @@ function Register() {
             localStorage.setItem("users", JSON.stringify(user));
             navigate("/login");
           }
-
           e.preventDefault();
         });
     }
@@ -106,13 +116,6 @@ function Register() {
         method="POST"
         className="lg:w-4/12 md:w-6/12 sm:w-10/12 w-11/12 mx-auto m-10 p-10 border border-light rounded-2xl"
       >
-        {/* <div className="absolute top-0 left-0 w-screen mx-auto">
-          <img
-            src={logo}
-            style={{ height: "120px" }}
-            className="mx-auto z-10"
-          />
-        </div> */}
         <h1 className="text-center text-3xl font-bold pt-10">REGISTER</h1>
         <div className="form-control my-3">
           <label>Name</label>

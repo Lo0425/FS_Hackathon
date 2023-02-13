@@ -13,6 +13,7 @@ function App() {
     navigate("/");
   };
   return (
+    
     <Routes>
       <Route path="/login" element={<Login setAuth={setAuth} />} />
       <Route path="/register" element={<Register />} />
