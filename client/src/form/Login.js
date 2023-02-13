@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import logo from "../public/simplr_logo.png";
 
 function Login({ setAuth }) {
   let navigate = useNavigate();
@@ -21,7 +22,7 @@ function Login({ setAuth }) {
   const onSubmitHandler = (e) => {
     setIsLoading(true);
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_API_SERVER}/users/login`, {
+    fetch(`http://127.0.0.1:8000/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,19 +63,18 @@ function Login({ setAuth }) {
       ) : (
         <div className="relative mt-5 pt-5">
           <form
-            className="lg:w-4/12 md:w-6/12 sm:w-10/12 w-11/12 mx-auto m-10 p-10 border border-light rounded-2xl"
+            className="lg:w-3/12 md:w-6/12 sm:w-10/12 w-11/12 mx-auto m-10 p-10 border border-light rounded-2xl"
             onSubmit={onSubmitHandler}
             method="POST"
           >
-            {/* <div className=" absolute top-0 left-0 w-screen mx-auto">
+            <div className=" absolute top-20 left-0 w-screen mx-auto mt-2">
               <img
                 src={logo}
-                style={{ height: "120px" }}
+                style={{ height: "30px" }}
                 className="mx-auto z-10"
               />
-            </div> */}
-            <h1 className="text-center text-3xl pt-10 font-bold">LOGIN</h1>
-            <div className="form-control my-3">
+            </div>
+            <div className="form-control my-3 pt-5 mt-5">
               <label>Email</label>
               <input
                 type="email"
@@ -105,7 +105,7 @@ function Login({ setAuth }) {
               </div>
             </div>
             <div className="flex">
-              <button className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+              <button className="inline-block px-20 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                 Login
               </button>
               <a
