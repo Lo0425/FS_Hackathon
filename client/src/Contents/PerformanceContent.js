@@ -9,6 +9,7 @@ const PerformanceContent = () => {
     const [data, setData] = useState();
     const [performance, setPerformance] = useState({
         employeeId: "",
+        leaderId: "",
         qualityOfWork: 1,
         initiative: 1,
         productivity: 1,
