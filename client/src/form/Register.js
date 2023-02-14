@@ -12,13 +12,6 @@ function Register() {
 
   let now = moment().unix();
 
-  // days between 2 timestamp
-  console.log((moment().unix() - 1676167142) / 86400);
-  // let dateBetween = moment().unix() - 1676166386;
-
-  // console.log(dateBetween / (1000 * 3600 * 24));
-
-  // console.log(moment().startOf("day"));
   useEffect(() => {
     const dataFetch = async () => {
       let data = await (
@@ -79,7 +72,6 @@ function Register() {
   let onSubmitHandler = (e) => {
     e.preventDefault();
     if (user.username.length < 8) {
-      console.log("<8 username");
       toast.error("username should be more than 8", {
         position: "top-center",
         autoClose: 3500,
@@ -87,8 +79,6 @@ function Register() {
         closeOnClick: true,
       });
     } else if (user.password.length < 8) {
-      console.log("less < 8");
-
       toast.error("password should be more then 8", {
         position: "top-center",
         autoClose: 3500,
@@ -96,7 +86,6 @@ function Register() {
         closeOnClick: true,
       });
     } else if (user.password !== user.password2) {
-      console.log("pass !=");
       toast.error("password should be match", {
         position: "top-center",
         autoClose: 3500,
