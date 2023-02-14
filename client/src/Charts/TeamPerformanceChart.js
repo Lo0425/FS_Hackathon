@@ -9,7 +9,6 @@ const TeamPerformanceChart = () => {
     const [employeeData, setEmployeeData] = useState([]);
     const [data, setData] = useState([]);
     const [categories, setCategories] = useState([
-        "Jan",
         "Feb",
         "Mar",
         "Apr",
@@ -58,13 +57,18 @@ const TeamPerformanceChart = () => {
                         title: {
                             text: "Performance Score",
                         },
+                        labels: {
+                            formatter: function (val) {
+                                return val;
+                            },
+                        },
                     },
                     xaxis: {
                         categories: categories,
                     },
                 }}
                 type="line"
-                width={500}
+                width={800}
             />
         </>
     );

@@ -3,10 +3,12 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import logo from "../public/simplr_logo.png";
+import { checkAuth } from "../api/users";
 
 const MobileNav = () => {
     const navItemRef = useRef(null);
     const navRef = useRef(null);
+    const { user } = checkAuth();
 
     const navigate = useNavigate();
 
@@ -68,22 +70,26 @@ const MobileNav = () => {
                 >
                     Employee Leave
                 </NavLink>
-                <NavLink
-                    to="/benefit"
-                    className={({ isActive }) =>
-                        isActive ? "text-blue-500" : "hover:text-blue-500"
-                    }
-                >
-                    Employee Benefit
-                </NavLink>
-                <NavLink
-                    to="/performance"
-                    className={({ isActive }) =>
-                        isActive ? "text-blue-500" : "hover:text-blue-500"
-                    }
-                >
-                    Employee Evaluation
-                </NavLink>
+                {user.data.leader || user.data.employee ? (
+                    <NavLink
+                        to="/profile"
+                        className={({ isActive }) =>
+                            isActive ? "text-blue-500" : "hover:text-blue-500"
+                        }
+                    >
+                        Profile
+                    </NavLink>
+                ) : null}
+                {user.data.leader ? (
+                    <NavLink
+                        to="/performance"
+                        className={({ isActive }) =>
+                            isActive ? "text-blue-500" : "hover:text-blue-500"
+                        }
+                    >
+                        Employee Evaluation
+                    </NavLink>
+                ) : null}
                 <p onClick={logoutHandler}>Logout</p>
             </div>
             {/* end of navlinks */}

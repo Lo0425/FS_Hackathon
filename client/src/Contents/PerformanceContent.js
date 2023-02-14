@@ -8,7 +8,8 @@ const PerformanceContent = () => {
     const userId = user.data._id;
     const [data, setData] = useState();
     const [performance, setPerformance] = useState({
-        employeeId: "",
+        // employeeId: "",
+        employeeName: "",
         leaderId: "",
         qualityOfWork: 1,
         initiative: 1,
@@ -52,7 +53,7 @@ const PerformanceContent = () => {
 
     let onSubmitHandler = (e) => {
         e.preventDefault();
-        if (performance.employeeId.length < 1) {
+        if (performance.employeeName.length < 1) {
             toast.error("Please select a employee", {
                 position: "top-center",
                 autoClose: 3500,
@@ -104,7 +105,7 @@ const PerformanceContent = () => {
                         <form onSubmit={onSubmitHandler} method="POST">
                             <div className="flex justify-center">
                                 <select
-                                    name="employeeId"
+                                    name="employeeName"
                                     className="
                 mb-5
           px-5
@@ -135,7 +136,10 @@ const PerformanceContent = () => {
                                         Select a employee
                                     </option>
                                     {data?.map((user, index) => (
-                                        <option key={index} value={user._id}>
+                                        <option
+                                            key={index}
+                                            value={user.username}
+                                        >
                                             {user.username}
                                         </option>
                                     ))}
