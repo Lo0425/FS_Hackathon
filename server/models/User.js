@@ -34,6 +34,18 @@ const UserSchema = new mongoose.Schema({
   daysofservice: {
     type: Number,
   },
+  sickleave: {
+    type: Number,
+    default: 14,
+  },
+  emergencyleave: {
+    type: Number,
+    default: 10,
+  },
+  annualleave: {
+    type: Number,
+    default: 12,
+  },
 });
 
 module.exports = mongoose.model("users", UserSchema);

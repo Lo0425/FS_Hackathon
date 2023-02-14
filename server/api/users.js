@@ -77,6 +77,48 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.put("/updatedays/:id", async (req, res) => {
+  try {
+    const { daysofservice } = req.body;
+
+    let user = await User.findOne({
+      _id: req.params.id,
+    });
+
+    user.daysofservice = daysofservice;
+
+    return res.json(user);
+  } catch (e) {
+    return res.json({
+      e,
+      msg: "Try again",
+      status: 400,
+    });
+  }
+});
+
+router.put("/updateleave/:id", async (req, res) => {
+  try {
+    const { emergencyleave, sickleave, annualleave } = req.body;
+
+    let user = await User.findOne({
+      _id: req.params.id,
+    });
+
+    user.emergencyleave = emergencyleave;
+    user.annualleave = annualleave;
+    user.sickleave = sickleave;
+
+    return res.json(user);
+  } catch (e) {
+    return res.json({
+      e,
+      msg: "Try again",
+      status: 400,
+    });
+  }
+});
+
 router.get("/leader", async (req, res) => {
   try {
     const users = await User.find({ leader: true });
