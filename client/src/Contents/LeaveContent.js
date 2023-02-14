@@ -1,18 +1,31 @@
 import { useState, useEffect } from "react";
 import { checkAuth } from "../api/users";
-import BarChart from "../Charts/TeamPerformanceChart";
+import AnnualLeaveChart from "../Charts/AnnualLeaveChart";
+import EmergencyLeaveChart from "../Charts/EmergencyLeaveChart";
+import SickLeaveChart from "../Charts/SickLeaveChart";
 
 const LeaveContent = () => {
     const { user } = checkAuth();
     return (
         <>
             {user.data.employee ? (
-                <div class="container mx-auto px-4 sm:px-8">
+                <div class="container flex mx-auto px-4 sm:px-8">
                     <div class="py-8">
                         <div>
                             <h2 class="text-2xl font-semibold leading-tight">
                                 Employee Leave
                             </h2>
+                        </div>
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                            <div className="w-full px-4 bg-white rounded-lg shadow-lg">
+                                <AnnualLeaveChart />
+                            </div>
+                            <div className="w-full px-4 bg-white rounded-lg shadow-lg">
+                                <EmergencyLeaveChart />
+                            </div>
+                            <div className="w-full px-4 bg-white rounded-lg shadow-lg">
+                                <SickLeaveChart />
+                            </div>
                         </div>
                         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                             <div class="inline-block min-w-full shadow-md rounded-lg overflow-hidden">

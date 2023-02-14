@@ -19,15 +19,18 @@ const SideBar = () => {
     const inactiveStyle =
         "flex px-2 py-4 space-x-4 rounded-md text-white hover:bg-white/10";
     return (
+        // <div
+        //     className={` ${
+        //         open ? "w-40" : "w-60"
+        //     } flex flex-col h-screen p-3 bg-gray-800 shadow duration-300`}
+        // >
         <div
-            className={` ${
-                open ? "w-40" : "w-60"
-            } flex flex-col h-screen p-3 bg-gray-800 shadow duration-300`}
+            className={`w-40 flex flex-col h-screen p-3 py-8 bg-gray-800 shadow duration-300`}
         >
             <div className="space-y-3">
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-bold text-white">Dashboard</h2>
-                    <button onClick={() => setOpen(!open)}>
+                    {/* <button onClick={() => setOpen(!open)}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="w-6 h-6 text-white"
@@ -42,7 +45,7 @@ const SideBar = () => {
                                 d="M4 6h16M4 12h8m-8 6h16"
                             />
                         </svg>
-                    </button>
+                    </button> */}
                 </div>
                 {/* <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center py-4">
@@ -85,6 +88,7 @@ const SideBar = () => {
                                 <FontAwesomeIcon
                                     icon={faHome}
                                     inverse
+                                    className="my-auto"
                                     size="lg"
                                 />
                                 <span className="text-gray-100">Home</span>
@@ -100,6 +104,7 @@ const SideBar = () => {
                                 <FontAwesomeIcon
                                     icon={faCalendar}
                                     inverse
+                                    className="my-auto"
                                     size="lg"
                                 />
                                 <span className="text-gray-100">
@@ -118,6 +123,7 @@ const SideBar = () => {
                                     icon={faReceipt}
                                     inverse
                                     size="lg"
+                                    className="my-auto"
                                 />
                                 <span className="text-gray-100">
                                     Employee Benefits
@@ -154,6 +160,7 @@ const SideBar = () => {
                                 <FontAwesomeIcon
                                     icon={faArrowRightFromBracket}
                                     inverse
+                                    className="my-auto"
                                     size="lg"
                                 />
                                 <span className="text-gray-100">Logout</span>
