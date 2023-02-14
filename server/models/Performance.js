@@ -4,6 +4,9 @@ const PerformanceSchema = new mongoose.Schema({
   employeeId: {
     type: String,
   },
+  leaderId: {
+    type: String,
+  },
   date: {
     type: String,
   },
@@ -19,8 +22,7 @@ const PerformanceSchema = new mongoose.Schema({
   customerFocus: {
     type: Number,
   },
-
-  performaceRating: {
+  performanceRating: {
     type: Number,
   },
 });
