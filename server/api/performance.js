@@ -18,14 +18,14 @@ router.post("/submitperformance", async (req, res) => {
             performanceRating,
             employeeName,
         } = req.body;
-        const user = await User.findOne({ username: employeeName });
-        user.performanceRating.push(performanceRating);
-        user.save();
-
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json(errors.array());
         const performanceReport = new Performance(req.body);
         performanceReport.save();
+        const user = await User.findOne({ username: employeeName });
+        user.performanceRating.push(performanceRating);
+        user.performanceReport = true;
+        user.save();
         return res.json({
             performanceReport,
             msg: "Performance review submited",

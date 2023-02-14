@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { checkAuth } from "../api/users";
 import { toast } from "react-toastify";
 import PersonalPerformanceChart from "../Charts/PersonalPerformanceChart";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const PerformanceContent = () => {
     const { user } = checkAuth();
     const userId = user.data._id;
     const [data, setData] = useState();
     const [performance, setPerformance] = useState({
-        // employeeId: "",
+        employeeId: "",
         employeeName: "",
         leaderId: "",
         qualityOfWork: 1,
@@ -25,15 +26,17 @@ const PerformanceContent = () => {
         setData(data);
     };
 
+    // console.log(data);
+
     useEffect(() => {
         dataFetch();
     }, []);
 
+    const navigate = useNavigate();
+
     const onSelectEmployeeHandler = (e) => {
         setPerformance({ ...performance, [e.target.name]: e.target.value });
     };
-
-    console.log(data);
 
     const onQOWRated = (e) => {
         setPerformance({ ...performance, [e.target.name]: e.target.value });
@@ -51,8 +54,11 @@ const PerformanceContent = () => {
         setPerformance({ ...performance, [e.target.name]: e.target.value });
     };
 
+    // data = data.filter
+
     let onSubmitHandler = (e) => {
         e.preventDefault();
+
         if (performance.employeeName.length < 1) {
             toast.error("Please select a employee", {
                 position: "top-center",
@@ -68,8 +74,10 @@ const PerformanceContent = () => {
                     parseInt(performance.qualityOfWork)) /
                     40) *
                 100;
+
             performance.performanceRating = percentage;
             performance.leaderId = user.data._id;
+            performance.performanceReport = true;
             e.preventDefault();
             fetch("http://127.0.0.1:8000/performance/submitperformance", {
                 method: "POST",
@@ -89,9 +97,10 @@ const PerformanceContent = () => {
                     });
                 });
         }
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
     };
-
-    console.log(performance);
 
     return (
         <>
@@ -135,14 +144,18 @@ const PerformanceContent = () => {
                                     <option value="DEFAULT" disabled hidden>
                                         Select a employee
                                     </option>
-                                    {data?.map((user, index) => (
-                                        <option
-                                            key={index}
-                                            value={user.username}
-                                        >
-                                            {user.username}
-                                        </option>
-                                    ))}
+                                    {data
+                                        ?.filter(
+                                            (user) => !user.performanceReport
+                                        )
+                                        .map((user, index) => (
+                                            <option
+                                                key={index}
+                                                value={user.username}
+                                            >
+                                                {user.username}
+                                            </option>
+                                        ))}
                                 </select>
                             </div>
 

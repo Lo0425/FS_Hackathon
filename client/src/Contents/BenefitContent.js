@@ -44,7 +44,7 @@ const BenefitContent = () => {
 
           <div class="max-w-screen-md mx-auto p-5">
             <form
-              class="w-full"
+              class="xl:w-10/12 lg:w-8/12 md:w-6/12 sm:w-10/12 w-11/12 mx-auto p-10 border border-light rounded-2xl shadow-lg shadow-blue-500/50"
               name={user._id}
               onSubmit={onSubmitHandler}
               method="PUT"
