@@ -96,6 +96,33 @@ router.put("/updatedays/:id", async (req, res) => {
     });
   }
 });
+router.put("/updateProfile/:id", async (req, res) => {
+  try {
+    console.log("hello");
+    const { name, bankNo, bankName, incomeTax, socso, address, contactNo } =
+      req.body;
+    let user = await User.findOne({
+      _id: req.params.id,
+    });
+    console.log(name);
+    user.name = name;
+    user.bankNo = bankNo;
+    user.bankName = bankName;
+    user.incomeTax = incomeTax;
+    user.socso = socso;
+    user.address = address;
+    user.contactNo = contactNo;
+    user.save();
+    console.log(user);
+    return res.json(user);
+  } catch (e) {
+    return res.json({
+      e,
+      msg: "Try again",
+      status: 400,
+    });
+  }
+});
 
 router.put("/updateleave/:id", async (req, res) => {
   try {
