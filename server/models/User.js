@@ -45,7 +45,7 @@ const UserSchema = new mongoose.Schema({
   annualleave: {
     type: Number,
     default: 12,
-  },
+  }
 });
 
 module.exports = mongoose.model("users", UserSchema);
