@@ -23,7 +23,7 @@ router.post("/submitperformance", async (req, res) => {
     performanceReport.save();
     return res.json({ performanceReport, msg: "Performance review submited" });
   } catch (e) {
-    return res.json({ e, msg: "Failed to send request" });
+    return res.json({ e, msg: "Failed to send submit performance review" });
   }
 });
 

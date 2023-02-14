@@ -7,7 +7,6 @@ const PerformanceContent = () => {
     const { user } = checkAuth();
     const userId = user.data._id;
     const [data, setData] = useState();
-    const [employeeData, setEmployeeData] = useState();
     const [performance, setPerformance] = useState({
         employeeId: "",
         qualityOfWork: 1,
@@ -52,23 +51,42 @@ const PerformanceContent = () => {
 
     let onSubmitHandler = (e) => {
         e.preventDefault();
-        fetch("http://127.0.0.1:8000/performance/submitperformance", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(performance),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                let type = data.status == 400 ? toast.error : toast.success;
-                type(data.msg, {
-                    position: "top-center",
-                    autoClose: 3500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                });
+        if (performance.employeeId.length < 1) {
+            toast.error("Please select a employee", {
+                position: "top-center",
+                autoClose: 3500,
+                hideProgressBar: false,
+                closeOnClick: true,
             });
+        } else {
+            let percentage =
+                ((parseInt(performance.productivity) +
+                    parseInt(performance.customerFocus) +
+                    parseInt(performance.initiative) +
+                    parseInt(performance.qualityOfWork)) /
+                    40) *
+                100;
+            performance.performanceRating = percentage;
+            performance.leaderId = user.data._id;
+            e.preventDefault();
+            fetch("http://127.0.0.1:8000/performance/submitperformance", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(performance),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    let type = data.status == 400 ? toast.error : toast.success;
+                    type(data.msg, {
+                        position: "top-center",
+                        autoClose: 3500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                    });
+                });
+        }
     };
 
     console.log(performance);
@@ -451,16 +469,6 @@ const PerformanceContent = () => {
                         </form>
                     </div>
                 </>
-            ) : null}
-
-            {user.data.employee ? (
-                <div className="container mx-12 mt-12">
-                    <div className="flex justify-center">
-                        <div className="w-1/2 px-4 py-5 bg-white rounded-lg shadow-lg">
-                            <PersonalPerformanceChart />
-                        </div>
-                    </div>
-                </div>
             ) : null}
         </>
     );
