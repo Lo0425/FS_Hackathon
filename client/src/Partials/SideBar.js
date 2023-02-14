@@ -126,7 +126,7 @@ const SideBar = () => {
                 <span className="text-gray-100">Profile</span>
               </NavLink>
             </li>
-            {user.data.admin || user.data.leader ? (
+            {user.data.leader ? (
               <li className="rounded-sm">
                 <NavLink
                   to="/performance"
