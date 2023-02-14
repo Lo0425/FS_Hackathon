@@ -131,6 +131,18 @@ router.get("/leader", async (req, res) => {
   }
 });
 
+router.get("/employee/:id", async (req, res) => {
+  try {
+    const employees = await User.find({ leaderId: req.params.id });
+    return res.json(employees);
+  } catch (e) {
+    return res.json({
+      e,
+      msg: "Failed to get employee data",
+    });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id });
