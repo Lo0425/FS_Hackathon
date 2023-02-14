@@ -112,7 +112,7 @@ const SideBar = () => {
             </li>
             <li className="rounded-sm">
               <NavLink
-                to="/benefit"
+                to="/profile"
                 className={({ isActive }) =>
                   isActive ? activeStyle : inactiveStyle
                 }
