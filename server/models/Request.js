@@ -19,6 +19,10 @@ const RequestSchema = new mongoose.Schema({
   totalLeaveTaken: {
     type: Number,
   },
+  status: {
+    type: String,
+    default: "pending",
+  },
 });
 
 module.exports = mongoose.model("request", RequestSchema);
