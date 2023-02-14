@@ -77,4 +77,31 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/leader", async (req, res) => {
+  try {
+    const users = await User.find({ leader: true });
+    return res.json(users);
+  } catch (e) {
+    return res.json({
+      e,
+      msg: "Failed to get user data",
+    });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    if (!user)
+      return res.json({
+        msg: "No user found",
+      });
+    return res.json({
+      user,
+    });
+  } catch (e) {
+    return res.json({ e, msg: "Cannot get user" });
+  }
+});
+
 module.exports = router;
