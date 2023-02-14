@@ -6,8 +6,7 @@ const TeamPerformanceChart = () => {
     const { user } = checkAuth();
     const userId = user.data._id;
     const [teamName, setTeamName] = useState("");
-    const [teamData, setTeamData] = useState();
-    const [employeePerformance, setEmployeePerformance] = useState();
+    const [employeeData, setEmployeeData] = useState([]);
     const [data, setData] = useState([]);
     const [categories, setCategories] = useState([
         "Jan",
@@ -24,40 +23,23 @@ const TeamPerformanceChart = () => {
         "Dec",
     ]);
 
-    const teamDataFetch = async () => {
-        let teamData = await (
-            await fetch("http://localhost:8000/users/employee/" + userId)
+    const employeeDataFetch = async () => {
+        let employeeData = await (
+            await fetch("http://localhost:8000/performance/employee/" + userId)
         ).json();
-        setTeamData(teamData);
+        setEmployeeData(employeeData);
     };
 
     useEffect(() => {
-        teamDataFetch();
+        employeeDataFetch();
     }, []);
 
-    console.log(teamData);
+    console.log({ employeeData });
 
-    // {data?.map((user, index) => (
-    //     <option key={index} value={user._id}>
-    //         {user.username}
-    //     </option>
-    // ))}
     return (
         <>
-            {/* {teamData.map((employee, index) => console.log(employee, index))} */}
             <Chart
-                series={[
-                    {
-                        name: teamData?.map((employee, i) => employee.username),
-                        data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10],
-                    },
-                    // {
-                    //     name: "Employee 2",
-                    //     data: [
-                    //         10, 45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15,
-                    //     ],
-                    // },
-                ]}
+                series={employeeData}
                 options={{
                     stroke: {
                         curve: "straight",
