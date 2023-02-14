@@ -10,6 +10,12 @@ const RequestSchema = new mongoose.Schema({
   reason: {
     type: String,
   },
+  tier1: {
+    type: Boolean,
+  },
+  tier2: {
+    type: Boolean,
+  },
   leaveType: {
     type: String,
   },

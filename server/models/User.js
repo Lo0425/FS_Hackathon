@@ -6,6 +6,31 @@ const UserSchema = new mongoose.Schema({
     },
     name: {
         type: String,
+        default: "",
+    },
+    bankNo: {
+        type: Number,
+        default: 0,
+    },
+    bankName: {
+        type: String,
+        default: "",
+    },
+    incomeTax: {
+        type: String,
+        default: "",
+    },
+    socso: {
+        type: String,
+        default: "",
+    },
+    address: {
+        type: String,
+        default: "",
+    },
+    contactNo: {
+        type: Number,
+        default: 0,
     },
     email: {
         type: String,
