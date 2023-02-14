@@ -4,17 +4,8 @@ const RequestSchema = new mongoose.Schema({
   email: {
     type: String,
   },
-  username: {
-    type: String,
-  },
   reason: {
     type: String,
-  },
-  tier1: {
-    type: Boolean,
-  },
-  tier2: {
-    type: Boolean,
   },
   leaveType: {
     type: String,

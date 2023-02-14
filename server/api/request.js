@@ -11,17 +11,8 @@ require("dotenv").config();
 
 router.post("/sendRequest", async (req, res) => {
   try {
-    let {
-      email,
-      username,
-      reason,
-      tier1,
-      tier2,
-      leaveType,
-      startDate,
-      totalLeaveTaken,
-      status,
-    } = req.body;
+    let { email, reason, leaveType, startDate, totalLeaveTaken, status } =
+      req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json(errors.array());
