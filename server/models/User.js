@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
+  id: {
+    type: String,
+  },
   name: {
     type: String,
   },
@@ -21,6 +24,15 @@ const UserSchema = new mongoose.Schema({
   },
   employee: {
     type: Boolean,
+  },
+  leaderId: {
+    type: String,
+  },
+  onboardingDate: {
+    type: String,
+  },
+  daysofservice: {
+    type: Number,
   },
 });
 

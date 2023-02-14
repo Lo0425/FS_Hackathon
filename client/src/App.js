@@ -9,40 +9,42 @@ import Performance from "./Dashboard/Performance";
 import Profile from "./form/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { checkAuth } from "./api/users";
 
 function App() {
-    const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(false);
+  const { user } = checkAuth();
 
-    return (
-        <>
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
-            <Routes>
-                {auth ? (
-                    <>
-                        <Route path="/" element={<Main />} />
-                        <Route path="/leave" element={<Leave />} />
-                        <Route path="/benefit" element={<Benefit />} />
-                        <Route path="/performance" element={<Performance />} />
-                    </>
-                ) : (
-                    <Route path="/" element={<Navigate to="/login" />} />
-                )}
-                <Route path="/login" element={<Login setAuth={setAuth} />} />
-                <Route path="/register" element={<Register />} />
-                {/* <Route path="/profile" element={<Profile />} /> */}
-            </Routes>
-        </>
-    );
+  return (
+    <>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <Routes>
+        {user ? (
+          <>
+            <Route path="/" element={<Main />} />
+            <Route path="/leave" element={<Leave />} />
+            <Route path="/benefit" element={<Benefit />} />
+            <Route path="/performance" element={<Performance />} />
+          </>
+        ) : (
+          <Route path="/" element={<Navigate to="/login" />} />
+        )}
+        <Route path="/login" element={<Login setAuth={setAuth} />} />
+        <Route path="/register" element={<Register />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
+      </Routes>
+    </>
+  );
 }
 
 export default App;
