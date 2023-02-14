@@ -6,26 +6,39 @@ import SickLeaveChart from "../Charts/SickLeaveChart";
 
 const LeaveContent = () => {
     const { user } = checkAuth();
+    const [request, setRequest] = useState({
+        email: "",
+        username: "",
+        reason: "",
+        leaveType: "",
+        startDate: "",
+        totalLeaveTaken: 0,
+        status: "pending",
+    });
+    let onChangeHandler = (e) => {
+        setRequest({ ...request, [e.target.name]: e.target.value });
+    };
+    let onSubmitHandler = (e) => {
+        console.log("fuk u");
+        e.preventDefault();
+        setRequest({ ...request, [e.target.name]: e.target.value });
+        fetch("http://127.0.0.1:8000/request/sendRequest", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(request),
+        }).then((res) => res.json());
+    };
     return (
         <>
             {user.data.employee ? (
-                <div class="container flex mx-auto px-4 sm:px-8">
+                <div class="container mx-auto px-4 sm:px-8">
                     <div class="py-8">
                         <div>
                             <h2 class="text-2xl font-semibold leading-tight">
                                 Employee Leave
                             </h2>
-                        </div>
-                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                            <div className="w-full px-4 bg-white rounded-lg shadow-lg">
-                                <AnnualLeaveChart />
-                            </div>
-                            <div className="w-full px-4 bg-white rounded-lg shadow-lg">
-                                <EmergencyLeaveChart />
-                            </div>
-                            <div className="w-full px-4 bg-white rounded-lg shadow-lg">
-                                <SickLeaveChart />
-                            </div>
                         </div>
                         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                             <div class="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
@@ -237,8 +250,21 @@ const LeaveContent = () => {
                                                     </li>
                                                     <li class="">
                                                         <a
-                                                            class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                                                            href="#"
+                                                            type="button"
+                                                            class=" bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap cursor-pointer"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#exampleModalCenter"
+                                                            onClick={() =>
+                                                                setRequest(
+                                                                    "",
+                                                                    "",
+                                                                    "",
+                                                                    "sickLeave",
+                                                                    "",
+                                                                    0,
+                                                                    "pending"
+                                                                )
+                                                            }
                                                         >
                                                             Request Leave
                                                         </a>
@@ -548,6 +574,164 @@ const LeaveContent = () => {
                     </div>
                 </div>
             ) : null}
+            <div
+                class="modal fade fixed top-0  hidden outline-none overflow-x-hidden overflow-y-auto"
+                id="exampleModalCenter"
+                tabindex="-1"
+                aria-labelledby="exampleModalCenterTitle"
+                aria-modal="true"
+                role="dialog"
+            >
+                <div class="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
+                    <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                        <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                            <h5
+                                class="text-xl font-medium leading-normal text-gray-800"
+                                id="exampleModalScrollableLabel"
+                            >
+                                Sick Leave
+                            </h5>
+                        </div>
+                        <form onSubmit={onSubmitHandler} method="POST">
+                            <div class="modal-body relative p-4">
+                                <label
+                                    for="exampleFormControlInpu3"
+                                    class="form-label inline-block mb-2 text-gray-700"
+                                >
+                                    Email
+                                </label>
+                                <input
+                                    onChange={onChangeHandler}
+                                    type="email"
+                                    name="email"
+                                    class="
+                form-control
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+              "
+                                    id="exampleFormControlInput3"
+                                />
+                                <label
+                                    for="exampleFormControlInpu3"
+                                    class="form-label inline-block mb-2 text-gray-700"
+                                >
+                                    Reason
+                                </label>
+                                <input
+                                    onChange={onChangeHandler}
+                                    type="text"
+                                    name="reason"
+                                    class="
+                form-control
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+              "
+                                    id="exampleFormControlInput3"
+                                />
+                                <label
+                                    for="exampleFormControlInpu3"
+                                    class="form-label inline-block mb-2 text-gray-700"
+                                >
+                                    Start Date
+                                </label>
+                                <input
+                                    onChange={onChangeHandler}
+                                    type="text"
+                                    name="startDate"
+                                    class="
+                form-control
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+              "
+                                    id="exampleFormControlInput3"
+                                    placeholder="00/00/0000"
+                                />
+                                <label
+                                    for="exampleFormControlInpu3"
+                                    class="form-label inline-block mb-2 text-gray-700"
+                                >
+                                    Total Days Requested
+                                </label>
+                                <input
+                                    onChange={onChangeHandler}
+                                    type="number"
+                                    name="totalLeaveTaken"
+                                    class="
+                form-control
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+              "
+                                    max={5}
+                                    min={1}
+                                    id="exampleFormControlInput3"
+                                />
+                            </div>
+                            <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                                <button
+                                    class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    type="submit"
+                                    class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1"
+                                >
+                                    Send Request
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };

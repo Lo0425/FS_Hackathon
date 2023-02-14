@@ -18,7 +18,7 @@ const Leave = () => {
                 <div className="flex min-h-screen bg-white">
                     <div
                         className={`${
-                            editOpen.visible ? "w-16" : "w-1/2"
+                            editOpen.visible ? "w-16" : "w-3/12"
                         } sticky top-0 left-0 hidden md:block`}
                     >
                         <SideBar />
