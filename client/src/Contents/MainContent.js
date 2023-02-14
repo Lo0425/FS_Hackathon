@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { checkAuth } from "../api/users";
-import BarChart from "../Charts/BarChart";
+import BarChart from "../Charts/TeamPerformanceChart";
 
 const MainContent = () => {
     const { user } = checkAuth();
@@ -16,7 +16,7 @@ const MainContent = () => {
                 </div>
             ) : null}
             {user.data.leader ? (
-                <div className="container mx-auto mt-12">
+                <div className="container mx-12 mt-12">
                     <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
                         <div className="w-full px-4 py-5 bg-white rounded-lg shadow">
                             <div className="text-sm font-medium text-gray-500 truncate">

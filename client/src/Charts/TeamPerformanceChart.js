@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-const BarChart = () => {
-    const [series, setSeries] = useState([
-        400, 430, 448, 470, 540, 580, 690, 1100,
-    ]);
+const TeamPerformanceChart = () => {
+    const [data, setData] = useState([400, 430, 448, 470, 540, 580, 690, 1100]);
     const [categories, setCategories] = useState([
         "A",
         "B",
@@ -23,8 +21,8 @@ const BarChart = () => {
             <Chart
                 series={[
                     {
-                        name: "series-1",
-                        data: series,
+                        name: "Performance",
+                        data: data,
                     },
                 ]}
                 options={{
@@ -47,10 +45,6 @@ const BarChart = () => {
                             },
                         },
                     },
-                    // stroke: {
-                    //     width: 1,
-                    //     colors: ['#fff']
-                    //   },
                     title: {
                         text: "Team Performance Chart",
                     },
@@ -62,4 +56,4 @@ const BarChart = () => {
     );
 };
 
-export default BarChart;
+export default TeamPerformanceChart;

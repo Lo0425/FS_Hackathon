@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { checkAuth } from "../api/users";
-import BarChart from "../Charts/BarChart";
+import BarChart from "../Charts/TeamPerformanceChart";
 
 const LeaveContent = () => {
     const { user } = checkAuth();
