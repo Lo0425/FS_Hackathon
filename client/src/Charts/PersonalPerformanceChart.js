@@ -30,45 +30,6 @@ const PersonalPerformanceChart = () => {
 
     return (
         <>
-            {/* <div className="flex justify-center">
-                <select
-                    name="employeeName"
-                    className="
-                mb-5
-          px-5
-        py-2.5
-        bg-white-500
-        font-bold
-        text-black
-        font-medium
-        text-xs
-        leading-tight
-        uppercase
-        rounded
-        shadow-md
-        hover:bg-white-500 hover:shadow-lg
-        focus:bg-white-500 focus:shadow-lg focus:outline-none focus:ring-0
-        active:bg-white-700 active:shadow-lg active:text-black
-        transition
-        duration-150
-        ease-in-out
-        flex
-        items-center
-        whitespace-nowrap"
-                    onChange={onSelectEmployeeHandler}
-                    defaultValue={"DEFAULT"}
-                >
-                    {" "}
-                    <option value="DEFAULT" disabled hidden>
-                        Select a employee
-                    </option>
-                    {data?.map((user, index) => (
-                        <option key={index} value={user.username}>
-                            {user.username}
-                        </option>
-                    ))}
-                </select>
-            </div> */}
             <Chart
                 series={userPerformance}
                 options={{
