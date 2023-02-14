@@ -35,10 +35,24 @@ const BarChart = () => {
                         bar: {
                             borderRadius: 4,
                             horizontal: true,
+                            dataLabels: {
+                                total: {
+                                    enabled: true,
+                                    offsetX: 0,
+                                    style: {
+                                        fontSize: "13px",
+                                        fontWeight: 900,
+                                    },
+                                },
+                            },
                         },
                     },
-                    dataLabels: {
-                        enabled: false,
+                    // stroke: {
+                    //     width: 1,
+                    //     colors: ['#fff']
+                    //   },
+                    title: {
+                        text: "Team Performance Chart",
                     },
                     xaxis: { categories },
                 }}
