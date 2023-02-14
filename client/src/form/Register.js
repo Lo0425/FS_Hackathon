@@ -1,19 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import logo from "../public/simplr_logo.png";
+import { v4 as uuid } from "uuid";
+import moment from "moment";
 
 function Register() {
+  const [data, setData] = useState();
+
+  let now = moment().unix();
+
+  // days between 2 timestamp
+  console.log((moment().unix() - 1676167142) / 86400);
+  // let dateBetween = moment().unix() - 1676166386;
+
+  // console.log(dateBetween / (1000 * 3600 * 24));
+
+  // console.log(moment().startOf("day"));
+  useEffect(() => {
+    const dataFetch = async () => {
+      let data = await (
+        await fetch("http://localhost:8000/users/leader")
+      ).json();
+      setData(data);
+    };
+    dataFetch();
+  }, []);
+
+  const unique_id = uuid();
+
   let navigate = useNavigate();
   const [user, setUser] = useState({
-    name: "",
     username: "",
     password: "",
     password2: "",
     leader: false,
     admin: false,
     employee: false,
+    leaderId: "",
+    onboardingDate: now,
+    daysofservice: 0,
   });
 
   const [viewPass, setViewPass] = useState(true);
@@ -23,15 +51,21 @@ function Register() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const onSelectLeaderHandler = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
   const onSelectHandler = (e) => {
+    if (e.target.value == "employee") {
+      setUser((user.leader = false));
+    } else if (e.target.value == "leader") {
+      setUser((user.employee = false));
+      setUser((user.leaderId = null));
+    }
     setUser({ ...user, [e.target.value]: true });
   };
 
   const roleOption = [
-    {
-      label: "Admin",
-      value: "admin",
-    },
     {
       label: "Leader",
       value: "leader",
@@ -74,16 +108,21 @@ function Register() {
       user.employee == false &&
       user.leader == false
     ) {
-      console.log("Blue select role");
       toast.error("Please select your role", {
         position: "top-center",
         autoClose: 3500,
         hideProgressBar: false,
         closeOnClick: true,
       });
+    } else if (user.employee == true && user.leaderId == null) {
+      toast.error("Please assign a leader", {
+        position: "top-center",
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+      });
     } else {
-      console.log("Blue");
-
+      setUser({ ...user, id: { unique_id } });
       fetch(`http://127.0.0.1:8000/users/register`, {
         method: "POST",
         headers: {
@@ -110,25 +149,17 @@ function Register() {
   };
 
   return (
-    <div className="relative mt-5 pt-5">
+    <div className="relative mt-5 pt-2">
       <form
         onSubmit={onSubmitHandler}
         method="POST"
-        className="lg:w-4/12 md:w-6/12 sm:w-10/12 w-11/12 mx-auto m-10 p-10 border border-light rounded-2xl"
+        className="xl:w-3/12 lg:w-4/12 md:w-6/12 sm:w-10/12 w-11/12 mx-auto m-10 p-10 border border-light rounded-2xl shadow-lg shadow-blue-500/50"
       >
-        <h1 className="text-center text-3xl font-bold pt-10">REGISTER</h1>
-        <div className="form-control my-3">
-          <label>Name</label>
-          <input
-            type="text"
-            name="name"
-            className="bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-            onChange={onChangeHandler}
-            required
-          />
+        <div className=" absolute top-14 left-0 w-screen mx-auto mt-10">
+          <img src={logo} style={{ height: "30px" }} className="mx-auto z-10" />
         </div>
 
-        <div className="form-control my-3">
+        <div className="form-control my-3 mt-20">
           <label>Username</label>
           <input
             type="text"
@@ -166,7 +197,7 @@ function Register() {
               type="button"
               onClick={() => setViewPass(!viewPass)}
             >
-              <FontAwesomeIcon icon={viewPass ? faEye : faEyeSlash} />
+              <FontAwesomeIcon icon={viewPass ? faEyeSlash : faEye} />
             </button>
           </div>
         </div>
@@ -186,30 +217,29 @@ function Register() {
               type="button"
               onClick={() => setViewPass2(!viewPass2)}
             >
-              <FontAwesomeIcon icon={viewPass2 ? faEye : faEyeSlash} />
+              <FontAwesomeIcon icon={viewPass2 ? faEyeSlash : faEye} />
             </button>
           </div>
         </div>
 
-        <div className="sm:flex justify-center form-control my-3 block">
-          <p className="my-auto font-bold pr-3">I am a </p>
+        <div className="sm:flex justify-between form-control my-3 pb-7 block">
           <select
             name="role"
             className="
-          px-2
+            px-5
           py-2.5
-          bg-green-500
+          bg-white-500
           font-bold
-          text-white
+          text-black
           font-medium
           text-xs
           leading-tight
           uppercase
           rounded
           shadow-md
-          hover:bg-green-600 hover:shadow-lg
-          focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0
-          active:bg-green-700 active:shadow-lg active:text-white
+          hover:bg-white-500 hover:shadow-lg
+          focus:bg-white-500 focus:shadow-lg focus:outline-none focus:ring-0
+          active:bg-white-700 active:shadow-lg active:text-black
           transition
           duration-150
           ease-in-out
@@ -220,7 +250,7 @@ function Register() {
             defaultValue={"DEFAULT"}
           >
             <option value="DEFAULT" disabled hidden>
-              Select your role
+              Select a role
             </option>
             {roleOption.map((option, i) => (
               <option key={i} value={option.value}>
@@ -228,15 +258,59 @@ function Register() {
               </option>
             ))}
           </select>
+
+          {user.employee ? (
+            <>
+              <select
+                name="leaderId"
+                className="
+          px-5
+        py-2.5
+        bg-white-500
+        font-bold
+        text-black
+        font-medium
+        text-xs
+        leading-tight
+        uppercase
+        rounded
+        shadow-md
+        hover:bg-white-500 hover:shadow-lg
+        focus:bg-white-500 focus:shadow-lg focus:outline-none focus:ring-0
+        active:bg-white-700 active:shadow-lg active:text-black
+        transition
+        duration-150
+        ease-in-out
+        flex
+        items-center
+        whitespace-nowrap"
+                onChange={onSelectLeaderHandler}
+                defaultValue={"DEFAULT"}
+              >
+                {" "}
+                <option value="DEFAULT" disabled hidden>
+                  Select leader
+                </option>
+                {data?.map((user, index) => (
+                  <option key={index} value={user._id}>
+                    {user.username}
+                  </option>
+                ))}
+              </select>
+            </>
+          ) : null}
         </div>
 
-        <div className="flex">
-          <button className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+        <div className="flex justify-center pb-2 pt-1">
+          <button className="inline-block px-20 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
             Register
           </button>
+        </div>
+
+        <div className="text-center py-5">
           <a
             href="/login"
-            className="my-auto ml-auto text-blue-400  text-right hover:text-violet-600"
+            className="text-blue-400 text-right hover:text-violet-600 "
           >
             I have an account
           </a>
