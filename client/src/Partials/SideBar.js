@@ -141,6 +141,7 @@ const SideBar = () => {
                                     <FontAwesomeIcon
                                         icon={faSignal}
                                         inverse
+                                        className="my-auto"
                                         size="lg"
                                     />
                                     <span className="text-gray-100">

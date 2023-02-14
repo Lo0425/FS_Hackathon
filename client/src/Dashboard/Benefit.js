@@ -8,9 +8,9 @@ const Benefit = () => {
     const [editOpen, setEditOpen] = useState({ visible: true });
 
     return (
-        <div className="relative flex flex-col">
+        <div className="flex flex-col">
             <MobileNav />
-            <div className="relative flex min-h-screen bg-white">
+            <div className="flex min-h-screen bg-white">
                 <div
                     className={`${
                         editOpen.visible ? "w-16" : "w-3/12"
@@ -18,7 +18,7 @@ const Benefit = () => {
                 >
                     <SideBar editOpen={editOpen} />
                 </div>
-                <div>
+                <div className="mx-auto">
                     <BenefitContent />
                 </div>
             </div>

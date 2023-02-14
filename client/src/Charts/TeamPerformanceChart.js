@@ -2,55 +2,56 @@ import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
 const TeamPerformanceChart = () => {
-    const [data, setData] = useState([400, 430, 448, 470, 540, 580, 690, 1100]);
+    const [teamName, setTeamName] = useState("");
+    const [data, setData] = useState([20, 30, 40, 50, 100]);
     const [categories, setCategories] = useState([
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
     ]);
-
     return (
         <>
             <Chart
                 series={[
                     {
-                        name: "Performance",
+                        name: teamName,
                         data: data,
                     },
                 ]}
                 options={{
-                    chart: {
-                        id: "basic-bar",
-                    },
-                    plotOptions: {
-                        bar: {
-                            borderRadius: 4,
-                            horizontal: true,
-                            dataLabels: {
-                                total: {
-                                    enabled: true,
-                                    offsetX: 0,
-                                    style: {
-                                        fontSize: "13px",
-                                        fontWeight: 900,
-                                    },
-                                },
-                            },
-                        },
+                    stroke: {
+                        curve: "straight",
                     },
                     title: {
-                        text: "Team Performance Chart",
+                        text: "Team Performance Chart by Month",
+                        align: "left",
                     },
-                    xaxis: { categories },
+                    grid: {
+                        row: {
+                            colors: ["#f3f3f3", "transparent"],
+                            opacity: 0.5,
+                        },
+                    },
+                    yaxis: {
+                        title: {
+                            text: "Performance Score",
+                        },
+                    },
+                    xaxis: {
+                        categories: categories,
+                    },
                 }}
-                type="bar"
+                type="line"
+                width={500}
             />
         </>
     );
