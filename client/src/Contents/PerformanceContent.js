@@ -8,6 +8,7 @@ const PerformanceContent = () => {
   const [data, setData] = useState();
   const [performance, setPerformance] = useState({
     employeeId: "",
+    employeeName: "",
     leaderId: "",
     qualityOfWork: 1,
     initiative: 1,
@@ -130,11 +131,11 @@ const PerformanceContent = () => {
                   defaultValue={"DEFAULT"}
                 >
                   {" "}
-                  <option value="DEFAULT" disabled hidden>
+                  <option value="DEFAULT" id="DEFAULT" disabled hidden>
                     Select a employee
                   </option>
                   {data?.map((user, index) => (
-                    <option key={index} value={user._id}>
+                    <option key={index} value={user.username}>
                       {user.username}
                     </option>
                   ))}

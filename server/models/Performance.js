@@ -4,6 +4,9 @@ const PerformanceSchema = new mongoose.Schema({
   employeeId: {
     type: String,
   },
+  employeeName: {
+    type: String,
+  },
   leaderId: {
     type: String,
   },
