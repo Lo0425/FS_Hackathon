@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
+import { checkAuth } from "../api/users";
 
 const PersonalPerformanceChart = () => {
+    const { user } = checkAuth();
+    const userId = user.data._id;
+    const [userData, setUserData] = useState();
+    const [userPerformance, setUserPerformance] = useState([]);
     const [data, setData] = useState([5, 6, 7, 10]);
     const [categories, setCategories] = useState([
         "Quality of Work",
@@ -9,6 +14,25 @@ const PersonalPerformanceChart = () => {
         "Productivity",
         "Customer Focus",
     ]);
+
+    const employeeDataFetch = async () => {
+        let userData = await (
+            await fetch("http://localhost:8000/users/" + userId)
+        ).json();
+        setUserData(userData);
+    };
+
+    const employeePerformanceFetch = async () => {
+        let userPerformance = await (
+            await fetch("http://localhost:8000/users/" + userId)
+        ).json();
+        setUserPerformance(userPerformance);
+    };
+
+    useEffect(() => {
+        employeeDataFetch();
+        // setData();
+    }, []);
 
     return (
         <>

@@ -10,8 +10,6 @@ const Main = () => {
     const { user } = checkAuth();
     const [data, setData] = useState();
     const [editOpen, setEditOpen] = useState({ visible: true });
-
-    console.log(user);
     let now = moment().unix();
     let onboardingDate = user.data.onboardingDate;
     let daysofservicedone = Math.ceil((now - onboardingDate) / 86400);
