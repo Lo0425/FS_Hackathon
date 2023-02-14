@@ -8,14 +8,20 @@ import {
     faReceipt,
     faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import { checkAuth } from "../api/users";
 import { logout } from "../api/users";
 
 const SideBar = () => {
     const [open, setOpen] = useState(false);
+    const { user } = checkAuth();
+    const activeStyle =
+        "bg-white/20 flex px-2 py-4 space-x-4 rounded-md text-white hover:bg-white/10";
+    const inactiveStyle =
+        "flex px-2 py-4 space-x-4 rounded-md text-white hover:bg-white/10";
     return (
         <div
             className={` ${
-                open ? "w-40" : "w-60 "
+                open ? "w-40" : "w-60"
             } flex flex-col h-screen p-3 bg-gray-800 shadow duration-300`}
         >
             <div className="space-y-3">
@@ -38,7 +44,7 @@ const SideBar = () => {
                         </svg>
                     </button>
                 </div>
-                <div className="relative">
+                {/* <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center py-4">
                         <button
                             type="submit"
@@ -66,13 +72,15 @@ const SideBar = () => {
                         placeholder="Search..."
                         className="w-full py-2 pl-10 text-sm rounded-md focus:outline-none"
                     />
-                </div>
+                </div> */}
                 <div className="flex-1">
-                    <ul className="pt-2 pb-4 space-y-1 text-sm">
+                    <ul className="pt-2 pb-4 space-y-2 text-sm">
                         <li className="rounded-sm">
                             <NavLink
                                 to="/"
-                                className="flex items-center p-2 space-x-3 rounded-md"
+                                className={({ isActive }) =>
+                                    isActive ? activeStyle : inactiveStyle
+                                }
                             >
                                 <FontAwesomeIcon
                                     icon={faHome}
@@ -85,7 +93,9 @@ const SideBar = () => {
                         <li className="rounded-sm">
                             <NavLink
                                 to="/leave"
-                                className="flex items-center p-2 space-x-3 rounded-md"
+                                className={({ isActive }) =>
+                                    isActive ? activeStyle : inactiveStyle
+                                }
                             >
                                 <FontAwesomeIcon
                                     icon={faCalendar}
@@ -99,8 +109,10 @@ const SideBar = () => {
                         </li>
                         <li className="rounded-sm">
                             <NavLink
-                                to="/benefits"
-                                className="flex items-center p-2 space-x-3 rounded-md"
+                                to="/benefit"
+                                className={({ isActive }) =>
+                                    isActive ? activeStyle : inactiveStyle
+                                }
                             >
                                 <FontAwesomeIcon
                                     icon={faReceipt}
@@ -112,26 +124,32 @@ const SideBar = () => {
                                 </span>
                             </NavLink>
                         </li>
-                        <li className="rounded-sm">
-                            <NavLink
-                                to="/performance"
-                                className="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                                <FontAwesomeIcon
-                                    icon={faSignal}
-                                    inverse
-                                    size="md"
-                                />
-                                <span className="text-gray-100">
-                                    Performance Evaluation
-                                </span>
-                            </NavLink>
-                        </li>
+                        {user.data.admin || user.data.leader ? (
+                            <li className="rounded-sm">
+                                <NavLink
+                                    to="/performance"
+                                    className={({ isActive }) =>
+                                        isActive ? activeStyle : inactiveStyle
+                                    }
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faSignal}
+                                        inverse
+                                        size="lg"
+                                    />
+                                    <span className="text-gray-100">
+                                        Employee Evaluation
+                                    </span>
+                                </NavLink>
+                            </li>
+                        ) : null}
                         <li className="rounded-sm">
                             <NavLink
                                 onClick={logout}
                                 to="/login"
-                                className="flex items-center p-2 space-x-3 rounded-md"
+                                className={({ isActive }) =>
+                                    isActive ? activeStyle : inactiveStyle
+                                }
                             >
                                 <FontAwesomeIcon
                                     icon={faArrowRightFromBracket}

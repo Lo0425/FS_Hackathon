@@ -43,7 +43,6 @@ const BarChart = () => {
                     xaxis: { categories },
                 }}
                 type="bar"
-                width="500"
             />
         </>
     );

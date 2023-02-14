@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { checkAuth } from "../api/users";
 import BarChart from "../Charts/BarChart";
 
-const Content = () => {
+const LeaveContent = () => {
     const { user } = checkAuth();
     return (
         <>
@@ -539,4 +539,4 @@ const Content = () => {
     );
 };
 
-export default Content;
+export default LeaveContent;

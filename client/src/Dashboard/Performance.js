@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import SideBar from "../Partials/SideBar";
 import LoadingBar from "../Partials/LoadingBar";
-import MainContent from "../Contents/MainContent";
+import PerformanceContent from "../Contents/PerformanceContent";
 
-const Main = () => {
+const Performance = () => {
     return (
         <div className="flex">
             <SideBar />
-            <MainContent />
+            <PerformanceContent />
         </div>
     );
 };
 
-export default Main;
+export default Performance;

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import SideBar from "../Partials/SideBar";
 import LoadingBar from "../Partials/LoadingBar";
-import MainContent from "../Contents/MainContent";
+import BenefitContent from "../Contents/BenefitContent";
 
-const Main = () => {
+const Benefit = () => {
     return (
         <div className="flex">
             <SideBar />
-            <MainContent />
+            <BenefitContent />
         </div>
     );
 };
 
-export default Main;
+export default Benefit;
