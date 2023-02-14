@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
 const SickLeaveChart = () => {
-    const [series, setSeries] = useState([3, 10]);
+    const [data, setData] = useState([3, 10]);
     const [categories, setCategories] = useState(["Used", "Remaining"]);
 
     return (
         <>
             <Chart
-                series={series}
+                series={data}
                 options={{
                     chart: {
                         id: "chart",
